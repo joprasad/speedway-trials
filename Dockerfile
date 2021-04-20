@@ -7,6 +7,7 @@ COPY . .
 RUN apt-get update && apt-get install -y dos2unix
 RUN dos2unix gradlew
 # -- End Windows ONLY --
+RUN chmod +x ./gradlew
 RUN ./gradlew build
 
 # Phase 2 - Build container with runtime only to use .jar file within
