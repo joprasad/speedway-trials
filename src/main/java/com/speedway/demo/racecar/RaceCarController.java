@@ -1,10 +1,7 @@
 package com.speedway.demo.racecar;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -16,6 +13,14 @@ public class RaceCarController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseDTO getRacecars(){
         return new ResponseDTO("OK", 200, new ArrayList<Object>());
+    }
+
+    @PostMapping("racecar")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseDTO createRaceCar(@RequestBody RaceCarDTO raceCarDTO) {
+        return new ResponseDTO(HttpStatus.CREATED.getReasonPhrase(),
+                HttpStatus.CREATED.value(),
+                "Race car created successfully!");
     }
 
 }

@@ -44,6 +44,9 @@ public class RaceCarIT {
         mockMvc.perform(post("/api/v1/racecar")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(raceDto)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.status").value("Created"))
+                .andExpect(jsonPath("$.status_code").value(201))
+                .andExpect(jsonPath("$.data").value("Race car created successfully!"));
     }
 }
