@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.transaction.Transactional;
 
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,6 +35,15 @@ public class RaceCarIT {
                 .andExpect(jsonPath("$.status").value("OK"))
                 .andExpect(jsonPath("$.status_code").value(200))
                 .andExpect(jsonPath("$.data.length()").value(0));
+    }
 
+    @Test
+    public void createRaceCar() throws Exception {
+        var raceDto = new RaceCarDTO("The Condor", "Corvette", 2019, 27, "AVAILABLE", 189);
+
+        mockMvc.perform(post("/api/v1/racecar")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(raceDto)))
+                .andExpect(status().isCreated());
     }
 }
