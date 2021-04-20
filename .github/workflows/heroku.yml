@@ -20,9 +20,10 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+     - uses: actions/checkout@v2
      - name: Deploy Docker Image to Heroku
  
-       uses: techmmunity/docker-heroku-deploy@v1.0.0
+       uses: Techmmunity/docker-heroku-deploy@v1.0.0
        with:
           # Email Linked to your Heroku Account
           email: ${{secrets.EMAIL}}
@@ -31,5 +32,5 @@ jobs:
           # Your Heroku App Name
           app_name: ${{secrets.APP_NAME}}
           # Dokerfile path
-          dockerfile_path: .
+          dockerfile_path: ''
          
