@@ -29,7 +29,7 @@ public class RaceCarIT {
     ObjectMapper objectMapper;
 
     @Test
-    public void getZeroRacecars() throws Exception {
+    public void getZeroRaceCars() throws Exception {
         mockMvc.perform(get("/api/v1/racecars"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("OK"))

@@ -1,12 +1,12 @@
-package com.speedway.demo.racecar;
+package com.speedway.demo.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ResponseDTO {
+public class ResponseDTO<T> {
     String status;
     int status_code;
-    Object data;
+    T data;
 }

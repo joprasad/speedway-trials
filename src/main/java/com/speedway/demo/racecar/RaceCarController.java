@@ -1,5 +1,6 @@
 package com.speedway.demo.racecar;
 
+import com.speedway.demo.utils.ResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,8 +12,10 @@ public class RaceCarController {
 
     @GetMapping("racecars")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseDTO getRacecars(){
-        return new ResponseDTO("OK", 200, new ArrayList<Object>());
+    public ResponseDTO getRacecars() {
+        return new ResponseDTO(HttpStatus.OK.getReasonPhrase(),
+                HttpStatus.OK.value(),
+                new ArrayList<RaceCarDTO>());
     }
 
     @PostMapping("racecar")
