@@ -14,7 +14,9 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import javax.transaction.Transactional;
 
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,7 +39,13 @@ public class RaceCarIT {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("OK"))
                 .andExpect(jsonPath("$.status_code").value(200))
-                .andExpect(jsonPath("$.data.length()").value(0));
+                .andExpect(jsonPath("$.data.length()").value(0))
+                .andDo(document("Get-Zero-RaceCar",
+                        responseFields(
+                                fieldWithPath("status").description("Return the http status desc"),
+                                fieldWithPath("status_code").description("Return the http status code"),
+                                fieldWithPath("data").description("Return the race car list")
+                        )));
     }
 
     @Test
@@ -55,7 +63,19 @@ public class RaceCarIT {
                 .andExpect(jsonPath("data[0].year").value(2019))
                 .andExpect(jsonPath("data[0].owner").value(27))
                 .andExpect(jsonPath("data[0].status").value("AVAILABLE"))
-                .andExpect(jsonPath("data[0].top_speed").value(189));
+                .andExpect(jsonPath("data[0].top_speed").value(189))
+                .andDo(document("Get-One-RaceCar",
+                        responseFields(
+                                fieldWithPath("status").description("Return the http status desc"),
+                                fieldWithPath("status_code").description("Return the http status code"),
+                                fieldWithPath("data").description("Return the race car list"),
+                                fieldWithPath("data[0].nickname").description("Race car nickname"),
+                                fieldWithPath("data[0].model").description("Race car model name"),
+                                fieldWithPath("data[0].year").description("Race car year"),
+                                fieldWithPath("data[0].owner").description("Race car owner id"),
+                                fieldWithPath("data[0].status").description("Race car status"),
+                                fieldWithPath("data[0].top_speed").description("Race car top speed")
+                        )));
     }
 
     @Test
@@ -64,7 +84,19 @@ public class RaceCarIT {
         mvcResult.andExpect(status().isCreated())
                 .andExpect(jsonPath("$.status").value("Created"))
                 .andExpect(jsonPath("$.status_code").value(201))
-                .andExpect(jsonPath("$.data").value("Race car created successfully!"));
+                .andExpect(jsonPath("$.data").value("Race car created successfully!"))
+                .andDo(document("Post-RaceCar", requestFields(
+                            fieldWithPath("nickname").description("Race car nickname"),
+                            fieldWithPath("model").description("Race car model name"),
+                            fieldWithPath("year").description("Race car year"),
+                            fieldWithPath("owner").description("Race car owner id"),
+                            fieldWithPath("status").description("Race car status"),
+                            fieldWithPath("top_speed").description("Race car top speed")),
+                        responseFields(
+                            fieldWithPath("status").description("Return the http status desc"),
+                            fieldWithPath("status_code").description("Return the http status code"),
+                            fieldWithPath("data").description("Return the race car created or not message")
+                )));
     }
 
     private ResultActions createRaceCar() throws Exception {
