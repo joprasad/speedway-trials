@@ -4,13 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Embeddable
-public class RaceCarDTO {
+public class RaceCarEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nickname;
     private String model;
@@ -19,7 +24,7 @@ public class RaceCarDTO {
     private String status;
     private int top_speed;
 
-    public RaceCarDTO(String nickname, String model, int year, int owner, String status, int top_speed) {
+    public RaceCarEntity(String nickname, String model, int year, int owner, String status, int top_speed) {
         this.nickname = nickname;
         this.model = model;
         this.year = year;
