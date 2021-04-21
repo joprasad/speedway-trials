@@ -1,0 +1,18 @@
+Post RaceCar
+
+.request
+include::{snippets}/Post-RaceCar/http-request.adoc[]
+include::{snippets}/Post-RaceCar/request-fields.adoc[]
+
+.response
+include::{snippets}/Post-RaceCar/http-response.adoc[]
+include::{snippets}/Post-RaceCar/response-fields.adoc[]
+
+Get List of RaceCar
+
+.request
+include::{snippets}/Get-One-RaceCar/http-request.adoc[]
+
+.response
+include::{snippets}/Get-One-RaceCar/http-response.adoc[]
+include::{snippets}/Get-One-RaceCar/response-fields.adoc[]
