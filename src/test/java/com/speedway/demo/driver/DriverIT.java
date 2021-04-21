@@ -2,11 +2,11 @@ package com.speedway.demo.driver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.speedway.demo.model.Driver;
-import com.speedway.demo.model.DriverEntity;
 import com.speedway.demo.racecar.RaceCarDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -16,12 +16,15 @@ import javax.transaction.Transactional;
 
 import java.util.List;
 
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
+@AutoConfigureRestDocs
 @SpringBootTest
 @Transactional
 public class DriverIT {
@@ -32,7 +35,6 @@ public class DriverIT {
     ObjectMapper objectMapper;
 
     Driver driver;
-    DriverEntity driverEntity;
     RaceCarDTO raceCarDTO;
 
     @BeforeEach
@@ -48,7 +50,9 @@ public class DriverIT {
                 .content(objectMapper.writeValueAsString(driver)))
                 .andExpect(jsonPath("$.status").value("Created"))
                 .andExpect(jsonPath("$.status_code").value(201))
-                .andExpect(jsonPath("$.data").value("Driver created successfully!"));
+                .andExpect(jsonPath("$.data").value("Driver created successfully!"))
+                .andDo(print())
+                .andDo(document("Post-Driver"));
     }
 
     @Test
@@ -74,7 +78,9 @@ public class DriverIT {
                 .andExpect(jsonPath("$.status").value("OK"))
                 .andExpect(jsonPath("$.status_code").value(200))
                 .andExpect(jsonPath("$.data.length()").value(1))
-                .andExpect(jsonPath("$.data.[0]firstName").value("Raj"));
+                .andExpect(jsonPath("$.data.[0]firstName").value("Raj"))
+                .andDo(print())
+                .andDo(document("Get-Driver"));
     }
 
     @Test
