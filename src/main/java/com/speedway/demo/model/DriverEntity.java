@@ -1,12 +1,11 @@
 package com.speedway.demo.model;
 
+import com.speedway.demo.racecar.RaceCarDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,11 +18,12 @@ public class DriverEntity {
     private String lastName;
     private int age;
     private String nickName;
-    private String cars;
+    @Embedded
+    private List<RaceCarDTO> cars;
     private int wins;
     private int loses;
 
-    public DriverEntity(String firstName, String lastName, int age, String nickName, String cars, int wins, int loses) {
+    public DriverEntity(String firstName, String lastName, int age, String nickName, List<RaceCarDTO> cars, int wins, int loses) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;

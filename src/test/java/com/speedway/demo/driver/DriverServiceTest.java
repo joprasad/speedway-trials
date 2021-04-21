@@ -2,6 +2,8 @@ package com.speedway.demo.driver;
 
 import com.speedway.demo.model.Driver;
 import com.speedway.demo.model.DriverEntity;
+import com.speedway.demo.racecar.RaceCarDTO;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,26 +25,33 @@ public class DriverServiceTest {
     @Mock
     DriverRepository driverRepository;
 
+    Driver driver;
+    DriverEntity driverEntity;
+    RaceCarDTO raceCarDTO;
+
+    @BeforeEach
+    public void setup() {
+        raceCarDTO = new RaceCarDTO();
+        driver = new Driver("Zack", "R", 30, "John", List.of(raceCarDTO), 1, 0);
+        driverEntity = new DriverEntity("Zack", "R", 30, "John", List.of(raceCarDTO), 1, 0);
+
+    }
+
     @Test
     public void saveDriverTest() {
 
-        Driver driver = new Driver("Zack", "R", 30, "John", "", 1, 0);
-
         driverService.saveDriver(driver);
 
-        verify(driverRepository).save(new DriverEntity("Zack", "R", 30, "John", "", 1, 0));
+        verify(driverRepository).save(driverEntity);
 
     }
 
     @Test
     public void fetchAllDrivers() {
-        DriverEntity driverEntity = new DriverEntity("Zack", "R", 30, "John", "", 1, 0);
-        Driver driver = new Driver("Zack", "R", 30, "John", "", 1, 0);
 
         when(driverRepository.findAll()).thenReturn(List.of(driverEntity));
 
         List<Driver> driverList = driverService.fetchAllDrivers();
-
 
         assertEquals(driverList, List.of(driver));
 

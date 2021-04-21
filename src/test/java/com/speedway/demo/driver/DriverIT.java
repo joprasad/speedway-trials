@@ -2,6 +2,9 @@ package com.speedway.demo.driver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.speedway.demo.model.Driver;
+import com.speedway.demo.model.DriverEntity;
+import com.speedway.demo.racecar.RaceCarDTO;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -10,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.transaction.Transactional;
+
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -26,9 +31,18 @@ public class DriverIT {
     @Autowired
     ObjectMapper objectMapper;
 
+    Driver driver;
+    DriverEntity driverEntity;
+    RaceCarDTO raceCarDTO;
+
+    @BeforeEach
+    public void setup() {
+        raceCarDTO = new RaceCarDTO();
+        driver = new Driver("Zack", "R", 30, "John", List.of(raceCarDTO), 1, 0);
+    }
+
     @Test
     public void addDriverTest() throws Exception {
-        Driver driver = new Driver("Zack", "R", 30, "John", "", 1, 0);
         mockMvc.perform(post("/driver")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(driver)))
@@ -49,7 +63,7 @@ public class DriverIT {
 
     @Test
     public void postAndGetDriverTest() throws Exception {
-        Driver driver = new Driver("Raj", "R", 33, "John", "", 1, 0);
+        Driver driver = new Driver("Raj", "R", 33, "John", List.of(raceCarDTO), 1, 0);
         mockMvc.perform(post("/driver")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(driver)))
@@ -65,8 +79,7 @@ public class DriverIT {
 
     @Test
     public void addManyDriversTest() throws Exception {
-        Driver driver = new Driver("Zach", "R", 30, "John", "", 4, 0);
-        Driver driver2 = new Driver("Raj", "R", 33, "John", "", 1, 1);
+        Driver driver2 = new Driver("Raj", "R", 33, "John", List.of(raceCarDTO), 1, 1);
         mockMvc.perform(post("/driver")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(driver)))
@@ -83,7 +96,7 @@ public class DriverIT {
                 .andExpect(jsonPath("$.status").value("OK"))
                 .andExpect(jsonPath("$.status_code").value(200))
                 .andExpect(jsonPath("$.data.length()").value(2))
-                .andExpect(jsonPath("$.data.[0].firstName").value("Zach"))
+                .andExpect(jsonPath("$.data.[0].firstName").value("Zack"))
                 .andExpect(jsonPath("$.data.[1].firstName").value("Raj"));
     }
 
