@@ -1,4 +1,4 @@
-package com.speedway.demo;
+package com.speedway.demo.driver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
@@ -30,14 +30,18 @@ public class DriverIT {
         mockMvc.perform(post("/driver")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(driver)))
-                .andExpect(status().isCreated());
+                .andExpect(jsonPath("$.status").value("Created"))
+                .andExpect(jsonPath("$.status_code").value(201))
+                .andExpect(jsonPath("$.data").value("Driver created successfully!"));
     }
 
     @Test
     public void getDriverTest() throws Exception {
         mockMvc.perform(get("/driver"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("length()").value(0));
+                .andExpect(jsonPath("$.status").value("OK"))
+                .andExpect(jsonPath("$.status_code").value(200))
+                .andExpect(jsonPath("$.data.length()").value(0));
     }
 
 
@@ -47,11 +51,14 @@ public class DriverIT {
         mockMvc.perform(post("/driver")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(driver)))
-                .andExpect(status().isCreated());
+                .andExpect(jsonPath("$.status").value("Created"))
+                .andExpect(jsonPath("$.status_code").value(201))
+                .andExpect(jsonPath("$.data").value("Driver created successfully!"));
         mockMvc.perform(get("/driver"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("length()").value(1))
-                .andExpect(jsonPath("[0].firstName").value("Raj"));
+                .andExpect(jsonPath("$.status").value("OK"))
+                .andExpect(jsonPath("$.status_code").value(200))
+                .andExpect(jsonPath("$.data.length()").value(1))
+                .andExpect(jsonPath("$.data.[0]firstName").value("Raj"));
     }
 
     @Test
@@ -61,16 +68,21 @@ public class DriverIT {
         mockMvc.perform(post("/driver")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(driver)))
-                .andExpect(status().isCreated());
+                .andExpect(jsonPath("$.status").value("Created"))
+                .andExpect(jsonPath("$.status_code").value(201))
+                .andExpect(jsonPath("$.data").value("Driver created successfully!"));
         mockMvc.perform(post("/driver")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(driver2)))
-                .andExpect(status().isCreated());
+                .andExpect(jsonPath("$.status").value("Created"))
+                .andExpect(jsonPath("$.status_code").value(201))
+                .andExpect(jsonPath("$.data").value("Driver created successfully!"));
         mockMvc.perform(get("/driver"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("length()").value(2))
-                .andExpect(jsonPath("[0].firstName").value("Zach"))
-        .andExpect(jsonPath("[1].firstName").value("Raj"));
+                .andExpect(jsonPath("$.status").value("OK"))
+                .andExpect(jsonPath("$.status_code").value(200))
+                .andExpect(jsonPath("$.data.length()").value(2))
+                .andExpect(jsonPath("$.data.[0].firstName").value("Zach"))
+                .andExpect(jsonPath("$.data.[1].firstName").value("Raj"));
     }
 
 }
