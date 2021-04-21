@@ -25,7 +25,7 @@ public class RaceCarService {
     }
 
     private RaceCarDTO createRaceCarDto(RaceCarEntity entity) {
-        return new RaceCarDTO(entity.getNickname(), entity.getModel(), entity.getYear(),
+        return new RaceCarDTO(entity.getId(), entity.getNickname(), entity.getModel(), entity.getYear(),
                 entity.getOwner(), entity.getStatus(), entity.getTop_speed());
     }
 

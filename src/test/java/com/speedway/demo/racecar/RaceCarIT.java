@@ -69,6 +69,7 @@ public class RaceCarIT {
                                 fieldWithPath("status").description("Return the http status desc"),
                                 fieldWithPath("status_code").description("Return the http status code"),
                                 fieldWithPath("data").description("Return the race car list"),
+                                fieldWithPath("data[0].id").description("Race car id"),
                                 fieldWithPath("data[0].nickname").description("Race car nickname"),
                                 fieldWithPath("data[0].model").description("Race car model name"),
                                 fieldWithPath("data[0].year").description("Race car year"),
@@ -86,6 +87,7 @@ public class RaceCarIT {
                 .andExpect(jsonPath("$.status_code").value(201))
                 .andExpect(jsonPath("$.data").value("Race car created successfully!"))
                 .andDo(document("Post-RaceCar", requestFields(
+                            fieldWithPath("id").description("Race car id"),
                             fieldWithPath("nickname").description("Race car nickname"),
                             fieldWithPath("model").description("Race car model name"),
                             fieldWithPath("year").description("Race car year"),
@@ -100,7 +102,8 @@ public class RaceCarIT {
     }
 
     private ResultActions createRaceCar() throws Exception {
-        var raceDto = new RaceCarDTO("The Condor", "Corvette", 2019, 27, "AVAILABLE", 189);
+        var raceDto = new RaceCarDTO("The Condor", "Corvette", 2019, 27,
+                "AVAILABLE", 189);
 
         return mockMvc.perform(post("/api/v1/racecar")
                 .contentType(MediaType.APPLICATION_JSON)

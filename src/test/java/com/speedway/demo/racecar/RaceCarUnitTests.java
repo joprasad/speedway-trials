@@ -23,11 +23,13 @@ public class RaceCarUnitTests {
     @Test
     public void getRaceCarsTest() {
         when(raceCarRepository.findAll()).thenReturn(List.of(
-                new RaceCarEntity("The Condor", "Corvette", 2019, 27, "AVAILABLE", 189)
+                new RaceCarEntity(1L,"The Condor", "Corvette", 2019, 27,
+                        "AVAILABLE", 189)
         ));
         var result = raceCarService.getRaceCars();
         assertThat(result).isEqualTo(List.of(
-                new RaceCarDTO("The Condor", "Corvette", 2019, 27, "AVAILABLE", 189)
+                new RaceCarDTO(1L,"The Condor", "Corvette", 2019, 27,
+                        "AVAILABLE", 189)
         ));
     }
 
