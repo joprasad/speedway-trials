@@ -22,5 +22,15 @@ public class DriverEntity {
     private String cars;
     private int wins;
     private int loses;
+
+    public DriverEntity(String firstName, String lastName, int age, String nickName, String cars, int wins, int loses) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.nickName = nickName;
+        this.cars = cars;
+        this.wins = wins;
+        this.loses = loses;
+    }
 }
 
