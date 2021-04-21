@@ -2,19 +2,19 @@ package com.speedway.demo.driver;
 
 import com.speedway.demo.model.Driver;
 import com.speedway.demo.utils.ResponseDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 public class DriverController {
-    List<Driver> driverList=new ArrayList<>();
+
+    @Autowired
+    DriverService driverService;
 
     @PostMapping("/driver")
     public ResponseDTO addDriver(@RequestBody Driver driver){
-        driverList.add(driver);
+        driverService.saveDriver(driver);
         return new ResponseDTO(HttpStatus.CREATED.getReasonPhrase(),
                 HttpStatus.CREATED.value(),
                 "Driver created successfully!");
@@ -24,6 +24,6 @@ public class DriverController {
     public ResponseDTO getDriver(){
         return new ResponseDTO(HttpStatus.OK.getReasonPhrase(),
                 HttpStatus.OK.value(),
-                driverList);
+                driverService.fetchAllDrivers());
     }
 }
