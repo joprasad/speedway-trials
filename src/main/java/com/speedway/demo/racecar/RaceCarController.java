@@ -2,6 +2,7 @@ package com.speedway.demo.racecar;
 
 import com.speedway.demo.utils.ResponseDTO;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,12 +23,16 @@ public class RaceCarController {
     }
 
     @PostMapping("racecar")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseDTO createRaceCar(@RequestBody RaceCarDTO raceCarDTO) {
-        this.raceCarService.createRaceCar(raceCarDTO);
-        return new ResponseDTO(HttpStatus.CREATED.getReasonPhrase(),
-                HttpStatus.CREATED.value(),
-                "Race car created successfully!");
+    public ResponseEntity<ResponseDTO> createRaceCar(@RequestBody RaceCarDTO raceCarDTO) {
+        if (raceCarDTO != null) {
+            this.raceCarService.createRaceCar(raceCarDTO);
+            return new ResponseEntity<>(new ResponseDTO(HttpStatus.CREATED.getReasonPhrase(),
+                    HttpStatus.CREATED.value(),
+                    "Race car created successfully!"), HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(new ResponseDTO(HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                    HttpStatus.BAD_REQUEST.value(), "Error creating racecar"), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
