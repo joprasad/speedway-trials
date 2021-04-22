@@ -3,6 +3,7 @@ package com.speedway.demo.driver;
 import com.speedway.demo.model.Driver;
 import com.speedway.demo.model.DriverEntity;
 import com.speedway.demo.racecar.RaceCarDTO;
+import com.speedway.demo.racecar.RaceCarEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,12 +29,16 @@ public class DriverServiceTest {
     Driver driver;
     DriverEntity driverEntity;
     RaceCarDTO raceCarDTO;
+    RaceCarEntity raceCarEntity;
 
     @BeforeEach
     public void setup() {
-        raceCarDTO = new RaceCarDTO();
+        raceCarDTO=new RaceCarDTO(1L,"The Condor", "Corvette", 2019, 27,
+                "AVAILABLE", 189);
+       raceCarEntity= new RaceCarEntity(1L,"The Condor", "Corvette", 2019, 27,
+                "AVAILABLE", 189);
         driver = new Driver("Zack", "R", 30, "John", List.of(raceCarDTO), 1, 0);
-        driverEntity = new DriverEntity("Zack", "R", 30, "John", List.of(raceCarDTO), 1, 0);
+        driverEntity = new DriverEntity("Zack", "R", 30, "John", List.of(raceCarEntity), 1, 0);
 
     }
 
