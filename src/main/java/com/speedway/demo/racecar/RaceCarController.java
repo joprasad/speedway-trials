@@ -24,15 +24,11 @@ public class RaceCarController {
 
     @PostMapping("racecar")
     public ResponseEntity<ResponseDTO> createRaceCar(@RequestBody RaceCarDTO raceCarDTO) {
-        if (raceCarDTO != null) {
-            this.raceCarService.createRaceCar(raceCarDTO);
-            return new ResponseEntity<>(new ResponseDTO(HttpStatus.CREATED.getReasonPhrase(),
-                    HttpStatus.CREATED.value(),
-                    "Race car created successfully!"), HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(new ResponseDTO(HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                    HttpStatus.BAD_REQUEST.value(), "Error creating racecar"), HttpStatus.BAD_REQUEST);
-        }
+        this.raceCarService.createRaceCar(raceCarDTO);
+        return new ResponseEntity<>(new ResponseDTO(HttpStatus.CREATED.getReasonPhrase(),
+                HttpStatus.CREATED.value(),
+                "Race car created successfully!"), HttpStatus.CREATED);
+
     }
 
 }
