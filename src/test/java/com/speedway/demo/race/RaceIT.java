@@ -72,7 +72,7 @@ public class RaceIT {
                 .andExpect(jsonPath("data[0].participants[0]").value(23))
                 .andExpect(jsonPath("data[0].participants[1]").value(45))
                 .andExpect(jsonPath("data[0].participants[2]").value(12))
-                .andDo(document("Get-One-RaceCar",
+                .andDo(document("Get-One-Race",
                         responseFields(
 
                                 fieldWithPath("status").description("Return the http status desc"),
@@ -95,7 +95,7 @@ public class RaceIT {
                 .andExpect(jsonPath("$.status").value("Created"))
                 .andExpect(jsonPath("$.status_code").value(201))
                 .andExpect(jsonPath("$.data").value("Race created successfully!"))
-                .andDo(document("Post-RaceCar", requestFields(
+                .andDo(document("Post-Race", requestFields(
                         fieldWithPath("name").description("Race name"),
                         fieldWithPath("category").description("Race category"),
                         fieldWithPath("date").description("Race date"),
