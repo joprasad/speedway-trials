@@ -101,6 +101,15 @@ public class RaceCarIT {
                 )));
     }
 
+    @Test
+    public void createRaceCarBadRequestTest() throws Exception{
+        mockMvc.perform(post("/api/v1/racecar"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value("Bad Request"))
+                .andExpect(jsonPath("$.status_code").value(400))
+                .andExpect(jsonPath("$.data").value("Error handling request"));
+    }
+
     private ResultActions createRaceCar() throws Exception {
         var raceDto = new RaceCarDTO("The Condor", "Corvette", 2019, 27,
                 "AVAILABLE", 189);
