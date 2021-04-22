@@ -1,15 +1,18 @@
 package com.speedway.demo.model;
 
 import com.speedway.demo.racecar.RaceCarDTO;
+import com.speedway.demo.racecar.RaceCarEntity;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
 @NoArgsConstructor
+@Data
 public class DriverEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,12 +21,12 @@ public class DriverEntity {
     private String lastName;
     private int age;
     private String nickName;
-    @Embedded
-    private List<RaceCarDTO> cars;
+    @OneToMany(mappedBy = "driverEntity",cascade = CascadeType.ALL)
+    private List<RaceCarEntity> cars;
     private int wins;
     private int loses;
 
-    public DriverEntity(String firstName, String lastName, int age, String nickName, List<RaceCarDTO> cars, int wins, int loses) {
+    public DriverEntity(String firstName, String lastName, int age, String nickName, List<RaceCarEntity> cars, int wins, int loses) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;

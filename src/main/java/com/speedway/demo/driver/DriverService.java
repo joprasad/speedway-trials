@@ -3,6 +3,8 @@ package com.speedway.demo.driver;
 
 import com.speedway.demo.model.Driver;
 import com.speedway.demo.model.DriverEntity;
+import com.speedway.demo.racecar.RaceCarDTO;
+import com.speedway.demo.racecar.RaceCarEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,14 @@ public class DriverService {
                 driver.getLastName(),
                 driver.getAge(),
                 driver.getNickName(),
-                driver.getCars(),
+                driver.getCars().stream().map(raceCar ->
+                        new RaceCarEntity(raceCar.getId(),raceCar.getNickname(),
+                                raceCar.getModel(),
+                                raceCar.getYear(),
+                                raceCar.getOwner(),
+                                raceCar.getStatus(),
+                                raceCar.getTop_speed()))
+                        .collect(Collectors.toList()),
                 driver.getWins(),
                 driver.getLoses()));
 
@@ -35,7 +44,8 @@ public class DriverService {
                  driverEntity.getLastName(),
                  driverEntity.getAge(),
                  driverEntity.getNickName(),
-                 driverEntity.getCars(),
+                 driverEntity.getCars().stream().map(entity->new RaceCarDTO(entity.getId(), entity.getNickname(), entity.getModel(), entity.getYear(),
+                         entity.getOwner(), entity.getStatus(), entity.getTop_speed())).collect(Collectors.toList()),
                  driverEntity.getWins(),
                  driverEntity.getLoses()))
                 .collect(Collectors.toList());
