@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,5 +18,5 @@ public class RaceDTO {
     LocalDate date;
     String bestTime;
     Long winner;
-    List<Integer> participants;
+    ArrayList<Integer> participants;
 }

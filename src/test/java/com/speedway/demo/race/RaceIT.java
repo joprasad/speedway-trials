@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -119,7 +121,7 @@ public class RaceIT {
 
     private ResultActions createRace() throws Exception {
         var raceDto = new RaceDTO("Grand Prix III","stock car", LocalDate.of(2020,6,3),
-                "03:36:78",12L, List.of(23,45,12));
+                "03:36:78",12L, new ArrayList<Integer>(Arrays.asList(23,45,12)));
 
         return mockMvc.perform(post("/api/v1/race")
                 .contentType(MediaType.APPLICATION_JSON)

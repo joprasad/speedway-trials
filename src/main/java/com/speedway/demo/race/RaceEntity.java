@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,9 +25,9 @@ public class RaceEntity {
     LocalDate date;
     String bestTime;
     Long winner;
-    List<Integer> participants;
+    ArrayList<Integer> participants;
 
-    public RaceEntity(String name, String category, LocalDate date, String bestTime, Long winner, List<Integer> participants) {
+    public RaceEntity(String name, String category, LocalDate date, String bestTime, Long winner, ArrayList<Integer> participants) {
         this.name = name;
         this.category = category;
         this.date = date;
