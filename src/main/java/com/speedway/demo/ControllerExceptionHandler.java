@@ -1,4 +1,4 @@
-package com.speedway.demo.racecar;
+package com.speedway.demo;
 
 import com.speedway.demo.utils.ResponseDTO;
 import org.springframework.http.HttpHeaders;
@@ -10,7 +10,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class RaceCarExceptionHandler  extends ResponseEntityExceptionHandler {
+public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(
