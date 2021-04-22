@@ -88,40 +88,31 @@ public class RaceIT {
                         )));
     }
 
-//    @Test
-//    public void createRaceCarTest() throws Exception {
-//        var mvcResult = createRaceCar();
-//        mvcResult.andExpect(status().isCreated())
-//                .andExpect(jsonPath("$.status").value("Created"))
-//                .andExpect(jsonPath("$.status_code").value(201))
-//                .andExpect(jsonPath("$.data").value("Race car created successfully!"))
-//                .andDo(document("Post-RaceCar", requestFields(
-//                            fieldWithPath("id").description("Race car id"),
-//                            fieldWithPath("nickname").description("Race car nickname"),
-//                            fieldWithPath("model").description("Race car model name"),
-//                            fieldWithPath("year").description("Race car year"),
-//                            fieldWithPath("owner").description("Race car owner id"),
-//                            fieldWithPath("status").description("Race car status"),
-//                            fieldWithPath("top_speed").description("Race car top speed")),
-//                        responseFields(
-//                            fieldWithPath("status").description("Return the http status desc"),
-//                            fieldWithPath("status_code").description("Return the http status code"),
-//                            fieldWithPath("data").description("Return the race car created or not message")
-//                )));
-//    }
-//
-//    @Test
-//    public void createRaceCarBadRequestTest() throws Exception{
-//        mockMvc.perform(post("/api/v1/racecar"))
-//                .andExpect(status().isBadRequest())
-//                .andExpect(jsonPath("$.status").value("Bad Request"))
-//                .andExpect(jsonPath("$.status_code").value(400))
-//                .andExpect(jsonPath("$.data").value("Error handling request"));
-//    }
+    @Test
+    public void createRaceTest() throws Exception {
+        var mvcResult = createRace();
+        mvcResult.andExpect(status().isCreated())
+                .andExpect(jsonPath("$.status").value("Created"))
+                .andExpect(jsonPath("$.status_code").value(201))
+                .andExpect(jsonPath("$.data").value("Race created successfully!"))
+                .andDo(document("Post-RaceCar", requestFields(
+                        fieldWithPath("name").description("Race name"),
+                        fieldWithPath("category").description("Race category"),
+                        fieldWithPath("date").description("Race date"),
+                        fieldWithPath("bestTime").description("Race best time"),
+                        fieldWithPath("winner").description("Race winner"),
+                        fieldWithPath("participants").description("Race participants")),
+                        responseFields(
+                                fieldWithPath("status").description("Return the http status desc"),
+                                fieldWithPath("status_code").description("Return the http status code"),
+                                fieldWithPath("data").description("Return the race created or not message")
+                        )));
+    }
+
 
     private ResultActions createRace() throws Exception {
-        var raceDto = new RaceDTO("Grand Prix III","stock car", LocalDate.of(2020,6,3),
-                "03:36:78",12L, new ArrayList<Integer>(Arrays.asList(23,45,12)));
+        var raceDto = new RaceDTO("Grand Prix III", "stock car", LocalDate.of(2020, 6, 3),
+                "03:36:78", 12L, new ArrayList<Integer>(Arrays.asList(23, 45, 12)));
 
         return mockMvc.perform(post("/api/v1/race")
                 .contentType(MediaType.APPLICATION_JSON)
