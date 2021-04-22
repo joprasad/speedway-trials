@@ -1,7 +1,7 @@
 # Speedway Service
 
 This service was created to expose the Race car, driver and race related endpoints. 
-To refer the below link to get the acceptance criteria.
+To refer the below link to read the acceptance criteria.
 [Acceptance Criteria](https://learn-2.galvanize.com/cohorts/2560/blocks/1167/content_files/units/05-speedway/01-unit-overview.md)
 
 ## How to deploy on docker
