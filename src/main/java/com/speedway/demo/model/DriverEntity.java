@@ -21,7 +21,7 @@ public class DriverEntity {
     private String lastName;
     private int age;
     private String nickName;
-    @OneToMany(mappedBy = "driverEntity",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "driverEntity",cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     private List<RaceCarEntity> cars;
     private int wins;
     private int loses;
