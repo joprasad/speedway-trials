@@ -12,7 +12,7 @@ public class DriverController {
     @Autowired
     DriverService driverService;
 
-    @PostMapping("/driver")
+    @PostMapping("/api/v1/driver")
     public ResponseDTO addDriver(@RequestBody Driver driver){
         driverService.saveDriver(driver);
         return new ResponseDTO(HttpStatus.CREATED.getReasonPhrase(),
@@ -20,7 +20,7 @@ public class DriverController {
                 "Driver created successfully!");
     }
 
-    @GetMapping("/driver")
+    @GetMapping("/api/v1/driver")
     public ResponseDTO getDriver(){
         return new ResponseDTO(HttpStatus.OK.getReasonPhrase(),
                 HttpStatus.OK.value(),
